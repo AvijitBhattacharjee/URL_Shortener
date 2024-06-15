@@ -21,3 +21,4 @@ jobs:
       - name: Run copyright check
         run:
           ./build-scripts/copyright_check.sh
+          
