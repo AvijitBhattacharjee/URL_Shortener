@@ -1,0 +1,38 @@
+name: Test and Exit
+
+on: [push, pull_request]
+
+jobs:
+  test_and_exit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Start server
+        run: |
+          sudo go run ./main.go &   # Start the server in the background
+          sleep 5                   # Wait for server to initialize (adjust as needed)
+
+      - name: Perform POST requests
+        run: |
+          curl -X POST -d '{"url": "http://example.com"}' http://localhost:8080/shorten
+          curl -X POST -d '{"url": "http://example.org"}' http://localhost:8080/shorten
+          curl -X POST -d '{"url": "http://example.net"}' http://localhost:8080/shorten
+
+      - name: Perform GET request by ID
+        run: |
+          curl http://localhost:8080/1   # Assuming ID 1 exists
+
+      - name: Perform GET request for top domains
+        run: |
+          curl http://localhost:8080/metrics/top-domains
+
+      - name: Stop server
+        run: |
+          kill $(pgrep -f main.go)  # Terminate the Go application gracefully
+
+      - name: Cleanup
+        run: |
+          # Add any necessary cleanup steps here
