@@ -38,9 +38,6 @@ jobs:
       - name: Lint Go code
         run: make lint
 
-      - name: Running the entrypoint
-        run: sudo go run ./main.go
-
       - name: Run unit tests
         run: make test
 

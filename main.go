@@ -12,6 +12,8 @@ import (
 	"github.com/gorilla/mux"
 )
 
+const serverAddress = ":8080" // Define server address as a constant
+
 // In-memory store for URL domains and their counts
 var domainCounts = make(map[string]int)
 var shortenedURLs = make(map[string]string)
@@ -41,8 +43,12 @@ func main() {
 	// Route to redirect based on shortened URL ID
 	r.HandleFunc("/{id}", redirectURL).Methods("GET")
 
-	log.Println("Server started on :8080")
-	http.ListenAndServe(":8080", r)
+	log.Printf("Server started on %s", serverAddress)
+
+	err := http.ListenAndServe(serverAddress, r)
+	if err != nil {
+		log.Fatalf("Failed to start server: %v", err)
+	}
 }
 
 func shortenURL(w http.ResponseWriter, r *http.Request) {
