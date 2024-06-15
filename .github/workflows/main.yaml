@@ -1,0 +1,51 @@
+name: Common Workflows
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install yamllint
+        run: sudo apt-get install -y yamllint
+
+      - name: Lint YAML files
+        run: yamllint .
+
+      - name: Check Go mod
+        run: go mod tidy
+        working-directory: ${{ github.workspace }}
+
+      - name: Check Go vendor
+        run: go mod vendor
+        working-directory: ${{ github.workspace }}
+
+      - name: Install golint
+        run: |
+          go install golang.org/x/lint/golint@latest
+          sudo apt install golint
+
+      - name: Lint Go code
+        run: make lint
+
+      - name: Running the entrypoint
+        run: sudo go run ./main.go
+
+      - name: Run unit tests
+        run: make test
+
+      - name: Build Go app
+        run: make build
+
+      - name: Clean up
+        run: make clean
