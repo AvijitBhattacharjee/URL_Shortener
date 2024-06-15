@@ -1,3 +1,5 @@
+// Copyright (c) avijit bhattacharjee 2024
+
 package main
 
 import (
@@ -12,20 +14,17 @@ import (
 	"github.com/gorilla/mux"
 )
 
-const serverAddress = ":8080" // Define server address as a constant
+const serverAddress = ":8080" 
 
-// In-memory store for URL domains and their counts
 var domainCounts = make(map[string]int)
 var shortenedURLs = make(map[string]string)
 var urlIDCounter int
 var mu sync.Mutex
 
-// URLShortenRequest represents the request payload for shortening a URL
 type URLShortenRequest struct {
 	URL string `json:"url"`
 }
 
-// DomainCount represents the domain and its count
 type DomainCount struct {
 	Domain string `json:"domain"`
 	Count  int    `json:"count"`
@@ -34,13 +33,10 @@ type DomainCount struct {
 func main() {
 	r := mux.NewRouter()
 
-	// Route to shorten a URL
 	r.HandleFunc("/shorten", shortenURL).Methods("POST")
 
-	// Route to get top 3 domains
 	r.HandleFunc("/metrics/top-domains", getTopDomains).Methods("GET")
 
-	// Route to redirect based on shortened URL ID
 	r.HandleFunc("/{id}", redirectURL).Methods("GET")
 
 	log.Printf("Server started on %s", serverAddress)
