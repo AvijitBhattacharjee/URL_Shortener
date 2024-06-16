@@ -14,7 +14,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-const serverAddress = ":8080" 
+const serverAddress = ":8080"
 
 var domainCounts = make(map[string]int)
 var shortenedURLs = make(map[string]string)
