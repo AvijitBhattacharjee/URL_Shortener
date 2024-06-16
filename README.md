@@ -19,4 +19,13 @@ API Testing
 3. GET Top 3 Domains
 ![image](https://github.com/AvijitBhattacharjee/URL_Shortener/assets/49098193/708343cf-8b81-46cd-9b39-05cdd684e44f)
 
+CI/CD Pipeline - 
+Using GitHub Actions - 
+![image](https://github.com/AvijitBhattacharjee/URL_Shortener/assets/49098193/055fa8df-e413-47e1-b0a1-07ce611b66d7)
+![image](https://github.com/AvijitBhattacharjee/URL_Shortener/assets/49098193/3e2d07fb-873c-4f3d-9e29-fadf270f75c8)
+
+Deployment - 
+Using Helm Chart 
+bash deployment.sh
+
 
