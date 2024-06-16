@@ -7,7 +7,7 @@ WORKDIR /app
 # Copy go mod and sum files
 COPY go.mod go.sum ./
 
-# Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
+# Download all dependencies
 RUN go mod download
 
 # Copy the source code from the current directory to the Working Directory inside the container
