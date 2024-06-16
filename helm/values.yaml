@@ -1,0 +1,11 @@
+replicaCount: 2
+
+appName: myurl
+deploymentName: myurl-deployment
+
+image:
+  registry: docker.io
+  repository: avbhatta/myurl
+  tag: 1.0
+
+port: 80
